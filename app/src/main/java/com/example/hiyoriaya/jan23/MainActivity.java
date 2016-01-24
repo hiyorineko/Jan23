@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.Random;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
     private EditText mInputMassage;
@@ -54,7 +55,47 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.send_massage){
-            Toast.makeText(this,"デデーン",Toast.LENGTH_SHORT).show();
+            String inputText = mInputMassage.getText().toString();
+            String answer;
+
+            mUserMassage.setText(inputText);
+            if(inputText.contains("元気ですか")) {
+                answer="元気ですけど";
+            }else if(inputText.contains("疲れた")) {
+                answer = "そうですか";
+            }else if(inputText.contains(("おみくじ"))){
+                answer = fortune();
+            }else{
+                answer = "Foo～";
+            }
+            mInputMassage.setText("");
+            mCpuMassage.setText(answer);
+           }
+    }
+
+    public String fortune(){
+        Random r = new Random();
+        String answer = " ";
+        switch(r.nextInt(6)){
+            case 0:
+                answer = "大吉";
+                break;
+            case 1:
+                answer = "中吉";
+                break;
+            case 2:
+                answer = "吉";
+                break;
+            case 3:
+                answer = "小吉";
+                break;
+            case 4:
+                answer =  "凶";
+                break;
+            case 5:
+                answer = "大凶";
+                break;
         }
+        return answer;
     }
 }
